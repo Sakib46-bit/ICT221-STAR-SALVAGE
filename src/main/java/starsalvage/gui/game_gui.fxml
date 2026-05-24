@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="starsalvage.gui.Controller"
+            style="-fx-background-color: #0a0a1a;"
+            prefWidth="900" prefHeight="700">
+
+    <top>
+        <VBox style="-fx-background-color: #0d1117; -fx-padding: 10;">
+            <Label text="★ STAR SALVAGE"
+                   style="-fx-text-fill: #00d4ff; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: monospace;"/>
+            <Label fx:id="subtitleLabel"
+                   text="Navigate the debris field and reach the EXIT"
+                   style="-fx-text-fill: #888888; -fx-font-size: 12px;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="10" style="-fx-padding: 10; -fx-background-color: #0a0a1a;">
+
+            <!-- Game grid -->
+            <VBox HBox.hgrow="ALWAYS" spacing="5">
+                <GridPane fx:id="gridPane"
+                          style="-fx-background-color: #0d1117; -fx-border-color: #00d4ff; -fx-border-width: 1px;"
+                          VBox.vgrow="ALWAYS"/>
+                <!-- Direction pad -->
+                <GridPane alignment="CENTER" hgap="4" vgap="4" style="-fx-padding: 8;">
+                    <Button text="↑ N" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                            fx:id="btnNorth" onAction="#onNorth"
+                            style="-fx-background-color: #1a2a3a; -fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-min-width: 60px;"/>
+                    <Button text="← W" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                            fx:id="btnWest" onAction="#onWest"
+                            style="-fx-background-color: #1a2a3a; -fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-min-width: 60px;"/>
+                    <Button text="WAIT" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                            fx:id="btnWait" onAction="#onWait"
+                            style="-fx-background-color: #1a1a2a; -fx-text-fill: #aaaaaa; -fx-font-weight: bold; -fx-min-width: 60px;"/>
+                    <Button text="E →" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                            fx:id="btnEast" onAction="#onEast"
+                            style="-fx-background-color: #1a2a3a; -fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-min-width: 60px;"/>
+                    <Button text="↓ S" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                            fx:id="btnSouth" onAction="#onSouth"
+                            style="-fx-background-color: #1a2a3a; -fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-min-width: 60px;"/>
+                </GridPane>
+            </VBox>
+
+            <!-- Right panel -->
+            <VBox spacing="10" prefWidth="230" style="-fx-padding: 8;">
+
+                <!-- Status panel -->
+                <VBox style="-fx-background-color: #0d1117; -fx-border-color: #333355; -fx-border-width: 1px; -fx-padding: 10;" spacing="4">
+                    <Label text="SHIP STATUS" style="-fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-font-family: monospace;"/>
+                    <Label fx:id="lblHp"       text="HP:  10 / 10" style="-fx-text-fill: #ff6666; -fx-font-family: monospace;"/>
+                    <Label fx:id="lblShields"  text="SH:  0"       style="-fx-text-fill: #66aaff; -fx-font-family: monospace;"/>
+                    <Label fx:id="lblFuel"     text="FU:  0"       style="-fx-text-fill: #ffaa33; -fx-font-family: monospace;"/>
+                    <Label fx:id="lblCredits"  text="CR:  0"       style="-fx-text-fill: #aaffaa; -fx-font-family: monospace;"/>
+                    <Label fx:id="lblWeapons"  text="WP:  0"       style="-fx-text-fill: #ff9966; -fx-font-family: monospace;"/>
+                    <Label fx:id="lblTurn"     text="Turn: 0"      style="-fx-text-fill: #aaaaaa; -fx-font-family: monospace;"/>
+                </VBox>
+
+                <!-- Message log -->
+                <VBox style="-fx-background-color: #0d1117; -fx-border-color: #333355; -fx-border-width: 1px; -fx-padding: 10;" spacing="4" VBox.vgrow="ALWAYS">
+                    <Label text="MESSAGE LOG" style="-fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-font-family: monospace;"/>
+                    <TextArea fx:id="msgLog" editable="false" wrapText="true"
+                              VBox.vgrow="ALWAYS"
+                              style="-fx-control-inner-background: #050510; -fx-text-fill: #cccccc;
+                                     -fx-font-family: monospace; -fx-font-size: 11px;"/>
+                </VBox>
+
+                <!-- Legend -->
+                <VBox style="-fx-background-color: #0d1117; -fx-border-color: #333355; -fx-border-width: 1px; -fx-padding: 8;" spacing="2">
+                    <Label text="LEGEND" style="-fx-text-fill: #00d4ff; -fx-font-weight: bold; -fx-font-family: monospace; -fx-font-size: 11px;"/>
+                    <Label text="@ Player   E Exit" style="-fx-text-fill: #888888; -fx-font-family: monospace; -fx-font-size: 10px;"/>
+                    <Label text="# Asteroid T Turret" style="-fx-text-fill: #888888; -fx-font-family: monospace; -fx-font-size: 10px;"/>
+                    <Label text="F Fuel  S Shield" style="-fx-text-fill: #888888; -fx-font-family: monospace; -fx-font-size: 10px;"/>
+                    <Label text="W Weapon  C Credits" style="-fx-text-fill: #888888; -fx-font-family: monospace; -fx-font-size: 10px;"/>
+                </VBox>
+
+                <!-- Action buttons -->
+                <VBox spacing="5">
+                    <HBox spacing="5">
+                        <Button fx:id="btnUndo" text="⟲ UNDO" onAction="#onUndo"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                style="-fx-background-color: #2a1a3a; -fx-text-fill: #cc88ff; -fx-font-weight: bold;"/>
+                        <Button fx:id="btnNewGame" text="NEW" onAction="#onNewGame"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                style="-fx-background-color: #1a3a1a; -fx-text-fill: #aaffaa; -fx-font-weight: bold;"/>
+                    </HBox>
+                    <HBox spacing="5">
+                        <Button fx:id="btnSave" text="💾 SAVE" onAction="#onSave"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                style="-fx-background-color: #1a2a3a; -fx-text-fill: #aaddff; -fx-font-weight: bold;"/>
+                        <Button fx:id="btnLoad" text="📂 LOAD" onAction="#onLoad"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                style="-fx-background-color: #1a2a3a; -fx-text-fill: #aaddff; -fx-font-weight: bold;"/>
+                    </HBox>
+                    <!-- Shoot controls -->
+                    <Label text="SHOOT TURRET:" style="-fx-text-fill: #ff9966; -fx-font-family: monospace; -fx-font-size: 11px;"/>
+                    <HBox spacing="4" alignment="CENTER">
+                        <Button text="↑" onAction="#onShootNorth" style="-fx-background-color: #3a1a1a; -fx-text-fill: #ff6644; -fx-font-weight: bold; -fx-min-width: 40px;"/>
+                        <Button text="←" onAction="#onShootWest"  style="-fx-background-color: #3a1a1a; -fx-text-fill: #ff6644; -fx-font-weight: bold; -fx-min-width: 40px;"/>
+                        <Button text="→" onAction="#onShootEast"  style="-fx-background-color: #3a1a1a; -fx-text-fill: #ff6644; -fx-font-weight: bold; -fx-min-width: 40px;"/>
+                        <Button text="↓" onAction="#onShootSouth" style="-fx-background-color: #3a1a1a; -fx-text-fill: #ff6644; -fx-font-weight: bold; -fx-min-width: 40px;"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <Label fx:id="statusBar" text="Ready"
+               style="-fx-background-color: #0d1117; -fx-text-fill: #666666;
+                      -fx-padding: 4 10 4 10; -fx-font-family: monospace; -fx-font-size: 11px;"
+               maxWidth="Infinity"/>
+    </bottom>
+
+</BorderPane>

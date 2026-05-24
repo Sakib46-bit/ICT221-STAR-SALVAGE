@@ -1,0 +1,1 @@
+rootProject.name = "ICT221_StarSalvage"
